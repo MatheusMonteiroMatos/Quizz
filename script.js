@@ -1,31 +1,32 @@
 const perguntas = [
-    { pergunta: "Qual a data da call em que a gente dormiu junto?", resposta: ["09/10", "09 de outubro"] },
-    { pergunta: "Qual é o meu louvor favorito?", resposta: ["Santo Espírito"] },
-    { pergunta: "Qual time eu torço de Futebol?", resposta: ["Flamengo"] },
-    { pergunta: "Qual time eu torço de Basquete?", resposta: ["Rockets", "Houston Rockets"] },
-    { pergunta: "Quanto é 7+8?", resposta: ["15", "quinze"] },
-    { pergunta: "Qual meu personagem favorito de naruto?", resposta: ["Kakashi Hatake", "Kakashi"] },
+    { pergunta: "Em que ano começou a Revolução Francesa?", resposta: ["1789"] },
+    { pergunta: "Qual é o continente mais populoso?", resposta: ["Ásia"] },
+    { pergunta: "Quem foi o autor de 'Dom Casmurro'?", resposta: ["Machado de Assis"] },
+    { pergunta: "Qual é a capital do Brasil?", resposta: ["Brasília"] },
+    { pergunta: "Em que ano foi proclamada a independência do Brasil?", resposta: ["1822"] },
+    { pergunta: "Qual é o maior animal terrestre?", resposta: ["elefante"] },
     { pergunta: "Quem descobriu o Brasil?", resposta: ["Pedro Álvares Cabral"] },
-    { pergunta: "Qual meu meu main no lol?", resposta: ["Ekko", "ekko"] },
-    { pergunta: "Qual minha música favorita do NewJeans?", resposta: ["Hurt"] },
-    { pergunta: "Qual é melhor, frio e calor?", resposta: ["Frio"] },
-    { pergunta: "Qual a capital do Canadá?", resposta: ["Ottawa"] },
-    { pergunta: "Qual meu Super-Herói favorito (ficção)?", resposta: ["Miranha", "Homem Aranha"] },
-    { pergunta: "Vem sempre aqui?", resposta: ["Sim", "Não", "As vezes"] },
-    { pergunta: "O meu recado do zap faz referência a qual versículo da bíblia?", resposta: ["Pv 2:11", "Provérbios 2:11"] },
-    { pergunta: "Qual o nome do protagonista do anime Dragon Ball?", resposta: ["Goku", "Kakaroto"] },
-    { pergunta: "Quem é o amor da minha vida?", resposta: ["Eu", "Minha princesa", "Ela", "Ana Clara", "Ana Clara Schimite", "Ana Clara Schimite dos Santos"] },
-    { pergunta: "Quem pegou o meu coração pra si?", resposta: ["Eu", "você", "Minha princesa", "Ela", "Ana Clara", "Ana Clara Schimite", "Ana Clara Schimite dos Santos"] },
-    { pergunta: "Quem é a princesa mais linda do mundo?", resposta: ["Eu", "você", "Minha princesa", "Ela", "Ana Clara", "Ana Clara Schimite", "Ana Clara Schimite dos Santos"] },
-    { pergunta: "Quem é a garota mais incrível do mundo?", resposta: ["Eu", "você", "Minha princesa", "Ela", "Ana Clara", "Ana Clara Schimite", "Ana Clara Schimite dos Santos"] },
-    { pergunta: "bjo amor", resposta: ["bjo", "bjo amor", "te amo"] },
-    
-    ];
-
+    { pergunta: "Qual é a língua mais falada no mundo?", resposta: ["mandarim"] },
+    { pergunta: "Qual planeta é conhecido como o 'Planeta Vermelho'?", resposta: ["Marte"] },
+    { pergunta: "Quem foi o primeiro presidente dos Estados Unidos?", resposta: ["George Washington"] },
+    { pergunta: "Qual é o nome do famoso muro que dividiu Berlim?", resposta: ["Muro de Berlim"] },
+    { pergunta: "Em que ano ocorreu a queda do Muro de Berlim?", resposta: ["1989"] },
+    { pergunta: "Qual é o maior oceano do mundo?", resposta: ["oceano Pacífico"] },
+    { pergunta: "Quem pintou a Mona Lisa?", resposta: ["Leonardo da Vinci"] },
+    { pergunta: "Qual é o nome do livro que narra as aventuras de um menino chamado Harry?", resposta: ["Harry Potter"] },
+    { pergunta: "Em que continente fica o Egito?", resposta: ["África"] },
+    { pergunta: "Qual é a principal religião do Japão?", resposta: ["xintoísmo"] },
+    { pergunta: "Qual é o nome do famoso monumento em Paris que é uma torre?", resposta: ["Torre Eiffel"] },
+    { pergunta: "Qual é o principal gás responsável pelo efeito estufa?", resposta: ["dióxido de carbono"] },
+    { pergunta: "Quem foi a primeira mulher a ganhar um Prêmio Nobel?", resposta: ["Marie Curie"] },
+    { pergunta: "Qual é o animal símbolo da Austrália?", resposta: ["coala"] }
+];
 
 let perguntaAtual = 0;
+let pontuacao = 0;
 
 function mostrarPergunta() {
+    document.getElementById("mensagem").innerText = "";
     if (perguntaAtual < perguntas.length) {
         document.getElementById("pergunta").innerText = perguntas[perguntaAtual].pergunta;
         document.getElementById("contadorPergunta").innerText = `Pergunta ${perguntaAtual + 1} de ${perguntas.length}`;
@@ -33,11 +34,11 @@ function mostrarPergunta() {
         document.getElementById("pergunta").innerText = "Parabéns! Você completou o Gênio Quiz!";
         document.getElementById("resposta").style.display = "none";
         document.querySelector("button").style.display = "none";
-        document.getElementById("mensagem").innerText = "Quer namorar comigo? ❤";
+        document.getElementById("mensagem").innerText = `Você fez ${pontuacao} de ${perguntas.length} pontos!`;
         document.getElementById("contadorPergunta").innerText = "";
+        document.getElementById("reiniciar").style.display = "block"; // Mostra o botão de reinício
     }
-   // document.getElementById("mensagem").innerText = "";
-    document.getElementById("resposta").value = "";
+    document.getElementById("resposta").value = ""; // Limpa o campo de resposta
 }
 
 function verificarResposta() {
@@ -45,17 +46,21 @@ function verificarResposta() {
     const respostasValidas = perguntas[perguntaAtual].resposta.map(res => res.toLowerCase());
 
     if (respostasValidas.includes(respostaUsuario)) {
+        document.getElementById("mensagem").innerText = "Resposta correta! 🎉";
+        document.getElementById("mensagem").style.color = "green";
+        pontuacao++; // Incrementa a pontuação
         perguntaAtual++;
         mostrarPergunta();
     } else {
-        document.getElementById("mensagem").innerText = "Resposta incorreta! O jogo será reiniciado.";
+        document.getElementById("mensagem").innerText = "Resposta incorreta! ❌ O jogo será reiniciado.";
+        document.getElementById("mensagem").style.color = "red";
         setTimeout(reiniciarJogo, 2000); // Aguarda 2 segundos antes de reiniciar o jogo
     }
 }
 
-
 function reiniciarJogo() {
     perguntaAtual = 0;
+    pontuacao = 0; // Reinicia a pontuação
     mostrarPergunta();
 }
 
