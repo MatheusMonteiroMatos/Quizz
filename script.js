@@ -23,7 +23,6 @@ const perguntas = [
 ];
 
 let perguntaAtual = 0;
-let pontuacao = 0;
 
 function mostrarPergunta() {
     document.getElementById("mensagem").innerText = "";
@@ -34,9 +33,8 @@ function mostrarPergunta() {
         document.getElementById("pergunta").innerText = "Parabéns! Você completou o Gênio Quiz!";
         document.getElementById("resposta").style.display = "none";
         document.querySelector("button").style.display = "none";
-        document.getElementById("mensagem").innerText = `Você fez ${pontuacao} de ${perguntas.length} pontos!`;
+        document.getElementById("mensagem").innerText = "Você completou todas as perguntas!";
         document.getElementById("contadorPergunta").innerText = "";
-        document.getElementById("reiniciar").style.display = "block"; // Mostra o botão de reinício
     }
     document.getElementById("resposta").value = ""; // Limpa o campo de resposta
 }
@@ -48,20 +46,14 @@ function verificarResposta() {
     if (respostasValidas.includes(respostaUsuario)) {
         document.getElementById("mensagem").innerText = "Resposta correta! 🎉";
         document.getElementById("mensagem").style.color = "green";
-        pontuacao++; // Incrementa a pontuação
         perguntaAtual++;
         mostrarPergunta();
     } else {
         document.getElementById("mensagem").innerText = "Resposta incorreta! ❌ O jogo será reiniciado.";
         document.getElementById("mensagem").style.color = "red";
-        setTimeout(reiniciarJogo, 2000); // Aguarda 2 segundos antes de reiniciar o jogo
+        perguntaAtual = 0; // Reinicia o jogo ao errar
+        setTimeout(mostrarPergunta, 2000); // Aguarda 2 segundos antes de mostrar a primeira pergunta novamente
     }
-}
-
-function reiniciarJogo() {
-    perguntaAtual = 0;
-    pontuacao = 0; // Reinicia a pontuação
-    mostrarPergunta();
 }
 
 // Iniciar o jogo
